@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Particle Simulation",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/particle_sim",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": false,
+      "preLaunchTask": "Build (Makefile)",
+      "MIMode": "lldb"
+    }
+  ]
+}

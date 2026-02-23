@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Build (Makefile)",
+      "command": "make",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build",
+      "detail": "Build using Makefile"
+    },
+    {
+      "type": "shell",
+      "label": "C/C++: g++ build (Linux)",
+      "command": "/usr/bin/g++",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "-std=c++17",
+        "src/main.cpp",
+        "src/glad.c",
+        "-Iinclude",
+        "-o",
+        "${workspaceFolder}/main",
+        "-lglfw",
+        "-lGL",
+        "-ldl",
+        "-lpthread",
+        "-lX11",
+        "-lXrandr",
+        "-lXi"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build",
+      "detail": "Linux build"
+    }
+  ]
+}
