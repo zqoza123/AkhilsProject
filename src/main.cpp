@@ -164,6 +164,17 @@ public:
     {
         position += velocity * deltaTime + 0.5f * acceleration * deltaTime * deltaTime;
         velocity += acceleration * deltaTime;
+
+        // Light damping to reduce energy buildup
+        velocity *= 0.99f;
+
+        // Clamp velocity magnitude to avoid numerical explosion
+        const float maxSpeed = 1000.0f;
+        float speedSq = glm::dot(velocity, velocity);
+        if (speedSq > maxSpeed * maxSpeed) {
+            velocity = glm::normalize(velocity) * maxSpeed;
+        }
+
         boundaryCollisions();
         modelMatrix = buildMatrix();
     }
@@ -367,8 +378,11 @@ int main()
                                         auto& B = *collider;
                                         glm::vec3 normal = A.position - B.position;
                                         float dist2 = glm::dot(normal, normal);
-                                        // check collision
-                                        if (dist2 <= gridSize * gridSize) // radius size * 2 already
+                                        const float eps = 1e-6f; // prevent division by zero
+                                        float maxDist = 2.0f * radius;
+                                        float maxDist2 = maxDist * maxDist;
+                                        // check collision with small-distance guard and tighter radius
+                                        if (dist2 > eps && dist2 <= maxDist2)
                                         {
                                             // normalize
                                             normal *= glm::inversesqrt(dist2);
